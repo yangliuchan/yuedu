@@ -1,0 +1,28 @@
+{
+  "name": "www.abc.com",
+  "version": "1.0.0",
+  "description": "What is CodeIgniter ###################",
+  "main": "index.js",
+  "dependencies": {
+    "element-ui": "^2.6.3",
+    "vue": "^2.6.10",
+    "vue-concise-slider": "^3.3.8"
+  },
+  "devDependencies": {
+    "webpack": "^4.29.6"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yangliuchan/yuedu.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yangliuchan/yuedu/issues"
+  },
+  "homepage": "https://github.com/yangliuchan/yuedu#readme",
+  "keywords": []
+}

@@ -188,25 +188,29 @@ body {
 }
 
 /*热门小说*/
-.module {
-    margin: .75rem 0;
-    background-color: #fff;
+.module{
+    margin-top: 1.5rem;
 }
-.module-header {
-    height: 1.75rem;
-    padding: 0 1rem;
-    border-top: 1rem solid transparent;
+.module-header{
+    line-height: 1.5rem;
 }
-.module-slide > .active, .module-slide-ol:only-child {
-    display: block;
+.module-title{
+    border-left: solid 2px #dc3545;
+    padding-left: 5px;
+    font-weight: bold;
+}
+.module-title-desc{
+    font-size: 0.8rem;
+    color: #969ba3;
+}
+.module-slide{
+
 }
 .module-slide-ol {
     position: relative;
-    display: none;
     overflow-x: auto;
     overflow-y: hidden;
     min-height: 10.75rem;
-    padding-left: .5rem;
     white-space: nowrap;
 }
 .module-slide-li {
@@ -216,13 +220,13 @@ body {
 }
 .module-slide-a {
     display: block;
-    width: 4.125rem;
+    width: 5.125rem;
     padding: .75rem .5rem .5rem;
 }
 .module-slide-img {
     display: block;
     width: inherit;
-    height: 5.5rem;
+    height: 6.5rem;
     box-shadow: 0 1px 3px rgba(0,0,0,.3);
 }
 .module-slide-caption {
@@ -238,4 +242,10 @@ body {
     white-space: nowrap;
     text-overflow: ellipsis;
     color: #969ba3;
+}
+.module-slide-ol::-webkit-scrollbar {
+    display: none;
+}
+aria {
+    font-size: 0;
 }

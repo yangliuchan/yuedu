@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="skin/iconfont/iconfont.css">
     <link rel="stylesheet" href="skin/css/style.css">
+    <link type="text/css" href="skin/css/huandeng.css" rel="stylesheet">
 </head>
 <body>
     <header class="header container">
