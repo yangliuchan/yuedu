@@ -54,8 +54,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 //$route['translate_uri_dashes'] = FALSE;
 
 $route['default_controller'] = 'welcome';
-$route['news/create'] = 'news/create';
-$route['news/(:any)'] = 'news/view/$1';
+$route['(:any)'] = 'welcome/$1';
+$route['getBlogById/:num'] = 'welcome/getBlogById/$1';
 $route['news'] = 'news';
-$route['(:any)'] = 'pages/view/$1';
+
+//$route['(:any)'] = 'welcome';
+//
+//$route['news/create'] = 'news/create';
+//$route['news/(:any)'] = 'news/view/$1';
+//;
+//$route['(:any)'] = 'pages/view/$1';
 //$route['default_controller'] = 'pages/view';

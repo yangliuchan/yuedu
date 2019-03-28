@@ -28,4 +28,28 @@ class Welcome extends CI_Controller {
 	{
 		$this->load->view('dist/index');
 	}
+
+	public function getAllBlogs()
+	{
+		$data=array(
+				array('id' => 1,'title' => 1, 'link' => 2, 'author' => 3, 'tag' => 4),
+				array('id' => 2,'title' => 1, 'link' => 2, 'author' => 3, 'tag' => 4),
+				array('id' => 3,'title' => 1, 'link' => 2, 'author' => 3, 'tag' => 4),
+		);
+		header('Content-Type:application/json');
+		echo json_encode($data);
+	}
+	public function getBlogById($id)
+	{
+		$data=array(
+				array('id' => 1,'title' => 1, 'link' => 2, 'author' => 3, 'tag' => 4),
+				array('id' => 2,'title' => 1, 'link' => 2, 'author' => 3, 'tag' => 4),
+				array('id' => 3,'title' => 1, 'link' => 2, 'author' => 3, 'tag' => 4),
+		);
+
+		$data=$data[1];
+		header('Content-Type:application/json');
+		echo json_encode($data);
+	}
+
 }
