@@ -58,7 +58,7 @@
         return {
             //查询输入框数据
             input: 0,
-            list: [{id:'1',title:'1',link:'2',date:'2',author:'3',tag:'4'},{id:'1',title:'1',link:'2',date:'2',author:'3',tag:'4'}] // 存放列表数据
+            list: [{id:'1',title:'1',link:'2',date:'2',author:'3',tag:'4'},{id:'1',title:'1',link:'2',date:'2',author:'3',tag:'4'}] ,// 存放列表数据
         };
     },
     methods: {
