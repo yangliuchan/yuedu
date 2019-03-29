@@ -14,7 +14,8 @@
                 :fetch-suggestions="querySearchAsync"
                 placeholder="请输入内容"
                 @select="handleSelect"
-                class="search">
+                class="search"
+                @keyup.enter.native = "clickEnter">
             <i
                     class="iconfont iconfangdajing"
                     slot="suffix"
@@ -57,6 +58,83 @@
                 </a>
             </el-col>
         </el-row>
+
+        <!--滑动-->
+        <el-row :gutter="10" class="module" >
+            <el-col :xs="6"><h4 class="module-title">热门小说</h4></el-col>
+            <el-col :xs="6" :offset="12"><span class="module-title-desc" >编辑推荐</span></el-col>
+            <el-col :xs="24">
+                <ol class="module-slide-ol" title="水平列表，可水平滚动">
+
+                    <li class="module-slide-li">
+                        <a href="/book/1011207893" class="module-slide-a">
+                            <img src="//bookcover.yuewen.com/qdbimg/349573/1011207893/150" class="module-slide-img" alt="还看今朝">
+                            <div class="module-slide-caption">还看今朝</div>
+                            <p class="module-slide-author">
+                                <span>作者：</span>
+                                <span class="gray">瑞根</span>
+                            </p>
+                        </a>
+                    </li>
+
+                    <li class="module-slide-li">
+                        <a href="/book/1011207893" class="module-slide-a">
+                            <img src="//bookcover.yuewen.com/qdbimg/349573/1011207893/150" class="module-slide-img" alt="还看今朝">
+                            <div class="module-slide-caption">还看今朝</div>
+                            <p class="module-slide-author">
+                                <span>作者：</span>
+                                <span class="gray">瑞根</span>
+                            </p>
+                        </a>
+                    </li>
+
+                    <li class="module-slide-li">
+                        <a href="/book/1011207893" class="module-slide-a">
+                            <img src="//bookcover.yuewen.com/qdbimg/349573/1011207893/150" class="module-slide-img" alt="还看今朝">
+                            <div class="module-slide-caption">还看今朝</div>
+                            <p class="module-slide-author">
+                                <span>作者：</span>
+                                <span class="gray">瑞根</span>
+                            </p>
+                        </a>
+                    </li>
+
+                    <li class="module-slide-li">
+                        <a href="/book/1011207893" class="module-slide-a">
+                            <img src="//bookcover.yuewen.com/qdbimg/349573/1011207893/150" class="module-slide-img" alt="还看今朝">
+                            <div class="module-slide-caption">还看今朝</div>
+                            <p class="module-slide-author">
+                                <span>作者：</span>
+                                <span class="gray">瑞根</span>
+                            </p>
+                        </a>
+                    </li>
+
+                    <li class="module-slide-li">
+                        <a href="/book/1011207893" class="module-slide-a">
+                            <img src="//bookcover.yuewen.com/qdbimg/349573/1011207893/150" class="module-slide-img" alt="还看今朝">
+                            <div class="module-slide-caption">还看今朝</div>
+                            <p class="module-slide-author">
+                                <span>作者：</span>
+                                <span class="gray">瑞根</span>
+                            </p>
+                        </a>
+                    </li>
+
+                    <li class="module-slide-li">
+                        <a href="/book/1011207893" class="module-slide-a">
+                            <img src="//bookcover.yuewen.com/qdbimg/349573/1011207893/150" class="module-slide-img" alt="还看今朝">
+                            <div class="module-slide-caption">还看今朝</div>
+                            <p class="module-slide-author">
+                                <span>作者：</span>
+                                <span class="gray">瑞根</span>
+                            </p>
+                        </a>
+                    </li>
+
+                </ol>
+            </el-col>
+        </el-row>
     </div>
 
 </template>
@@ -93,6 +171,62 @@
     .iconfangdajing{
         line-height: 40px;
         padding: 10px;
+    }
+    /*热门小说*/
+    .module-title{
+        border-left: solid 2px #dc3545;
+        padding-left: 5px;
+        font-weight: bold;
+        margin: 0;
+    }
+    .module-title-desc{
+        font-size: 0.8rem;
+        color: #969ba3;
+    }
+    .module-slide{
+
+    }
+    .module-slide-ol {
+        position: relative;
+        overflow-x: auto;
+        overflow-y: hidden;
+        min-height: 10.75rem;
+        white-space: nowrap;
+        padding: 0;
+        margin: 0;
+    }
+    .module-slide-li {
+        display: inline-block;
+        vertical-align: top;
+        white-space: normal;
+    }
+    .module-slide-a {
+        display: block;
+        width: 5.125rem;
+        padding: .75rem .5rem .5rem;
+    }
+    .module-slide-img {
+        display: block;
+        width: inherit;
+        height: 6.5rem;
+        box-shadow: 0 1px 3px rgba(0,0,0,.3);
+    }
+    .module-slide-caption {
+        font-size: .8125rem;
+        line-height: 1.25;
+        overflow: hidden;
+        max-height: 2.125rem;
+        margin: .5rem 0 .125rem;
+    }
+    .module-slide-author {
+        font-size: .75rem;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        color: #969ba3;
+    }
+    .module-slide-ol::-webkit-scrollbar {
+        display: none;
     }
 </style>
 <script>
@@ -176,6 +310,8 @@
                 {"value": "南拳妈妈龙虾盖浇饭", "address": "普陀区金沙江路1699号鑫乐惠美食广场A13"}
             ];
         },
+        //queryString 为在框中输入的值
+        //cb 回调函数,将处理好的数据推回
         querySearchAsync(queryString, cb) {
             var restaurants = this.restaurants;
             var results = queryString ? restaurants.filter(this.createStateFilter(queryString)) : restaurants;
@@ -196,6 +332,10 @@
         },
         search(ev) {
             console.log(ev);
+//            this.$router.push({path:'/' +   ev.value})
+        },
+        clickEnter(queryString) {
+            console.log(queryString);
 //            this.$router.push({path:'/' +   ev.value})
         }
     },
