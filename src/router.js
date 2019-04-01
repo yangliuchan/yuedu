@@ -3,6 +3,7 @@ import AddBlog from './components/addBlog'
 import UpdateBlog from './components/updateBlog'
 import ListBlog from './components/ListBlog'
 import HomeBlog from './components/HomeBlog'
+import Search from './components/Search'
 
 // 1、创建路由对象
 var router = new VueRouter({
@@ -10,6 +11,7 @@ var router = new VueRouter({
         { path: '/listBlog', component: ListBlog },
         { path: '/addBlog', component: AddBlog },
         { path: '/updateBlog/:id', component: UpdateBlog },
+        { path: '/Search/:keyword', component: Search },
         { path: '/', component: HomeBlog }
     ]
 })

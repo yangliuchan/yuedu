@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <!--头部-->
-    <el-row :gutter="10">
-      <el-col :xs="5"><div class="logo"><router-link to="/"><img src="./assets/logo.png"></router-link></div></el-col>
-      <el-col :xs="14">
+    <el-row :gutter="10" class="head">
+      <el-col :xs="5" :lg="5"><div class="logo"><router-link to="/"><img src="./assets/logo.png"></router-link></div></el-col>
+      <el-col :xs="14" :lg="14">
         <div class="nan_nv">
           <el-button-group>
             <el-button type="primary" size="small" icon="el-icon-arrow-left" v-on:click="goMan">男</el-button>
@@ -11,7 +11,7 @@
           </el-button-group>
         </div>
       </el-col>
-      <el-col :xs="5" class="textRight">
+      <el-col :xs="5" :lg="5" class="textRight">
         <span v-if="homepage">
           <i class="iconfont iconhuiyuan"></i>
           <router-link to="/listBlog"><i class="iconfont iconshujia"></i></router-link>
@@ -28,8 +28,8 @@
         </el-dropdown>
 
       </el-col>
+      <br>
     </el-row>
-    <br>
     <router-view></router-view>
   </div>
 </template>

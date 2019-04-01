@@ -10,7 +10,7 @@
 
         <!--搜索框-->
         <el-autocomplete
-                v-model="state4"
+                v-model="wd"
                 :fetch-suggestions="querySearchAsync"
                 placeholder="请输入内容"
                 @select="handleSelect"
@@ -25,7 +25,7 @@
 
         <!--首页导航-->
         <el-row :gutter="10" class="homaNav">
-            <el-col :xs="6">
+            <el-col :xs="6" :lg="6">
                 <a href="">
                     <svg class="iconfont" aria-hidden="true">
                         <use xlink:href="#iconshuangsechangyongtubiao-"></use>
@@ -33,7 +33,7 @@
                     <h3>分类</h3>
                 </a>
             </el-col>
-            <el-col :xs="6">
+            <el-col :xs="6" :lg="6">
                 <a href="">
                     <svg class="iconfont" aria-hidden="true">
                         <use xlink:href="#iconpaihang"></use>
@@ -41,7 +41,7 @@
                     <h3>排行</h3>
                 </a>
             </el-col>
-            <el-col :xs="6">
+            <el-col :xs="6" :lg="6">
                 <a href="">
                     <svg class="iconfont" aria-hidden="true">
                         <use xlink:href="#iconbook"></use>
@@ -49,7 +49,7 @@
                     <h3>完本</h3>
                 </a>
             </el-col>
-            <el-col :xs="6">
+            <el-col :xs="6" :lg="6">
                 <a href="">
                     <svg class="iconfont" aria-hidden="true">
                         <use xlink:href="#iconhuangguan"></use>
@@ -61,8 +61,8 @@
 
         <!--滑动-->
         <el-row :gutter="10" class="module" >
-            <el-col :xs="6"><h4 class="module-title">热门小说</h4></el-col>
-            <el-col :xs="6" :offset="12"><span class="module-title-desc" >编辑推荐</span></el-col>
+            <el-col :xs="6" :lg="6"><h4 class="module-title">热门小说</h4></el-col>
+            <el-col :xs="6" :lg="6" :offset="12"><span class="module-title-desc" >编辑推荐</span></el-col>
             <el-col :xs="24">
                 <ol class="module-slide-ol" title="水平列表，可水平滚动">
 
@@ -249,7 +249,7 @@
                 }
             ],
             restaurants: [],
-            state4: '',
+            wd: '',
             timeout:  null
         };
     },
@@ -330,12 +330,13 @@
             console.log(item);
             this.$router.push({path:'/' +   item.value})
         },
-        search(ev) {
-            console.log(ev);
-//            this.$router.push({path:'/' +   ev.value})
+        search() {
+            //console.log(ev);
+            this.$router.push({path:'/search/' +   this.wd})
+            //this.$router.push({path:'/' +   ev.value})
         },
         clickEnter(queryString) {
-            console.log(queryString);
+            console.log(this.wd);
 //            this.$router.push({path:'/' +   ev.value})
         }
     },
