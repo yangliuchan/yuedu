@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <!--头部-->
-    <el-row :gutter="10" class="head">
+    <el-row :gutter="10" class="head" v-show="homepage">
       <el-col :xs="5" :lg="5"><div class="logo"><router-link to="/"><img src="./assets/logo.png"></router-link></div></el-col>
       <el-col :xs="14" :lg="14">
         <div class="nan_nv">
@@ -31,6 +31,10 @@
       <br>
     </el-row>
     <router-view></router-view>
+    <el-row v-show="footshow">
+      <el-col :span="24" class="textCenter">copyright © 2019 abc.com</el-col>
+    </el-row>
+
   </div>
 </template>
 
@@ -56,6 +60,15 @@
   .textRight{
     text-align: right;
   }
+  .textCenter{
+    text-align: center;
+  }
+  .f_left{
+    float: left;
+  }
+  .f_right{
+    float: right;
+  }
 </style>
 
 <script>
@@ -63,6 +76,7 @@
     data() {
       return {
         homepage:true,
+        footshow:true
       }
     },
     methods: {
@@ -85,8 +99,10 @@
         const path = this.$route.path
         if(path == '/'|| path=='/woman'){
           this.homepage=true
+          this.footshow=true
         }else {
           this.homepage=false
+          this.footshow=false
         }
       },
 

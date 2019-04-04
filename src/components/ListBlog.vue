@@ -58,7 +58,7 @@
         return {
             //查询输入框数据
             input: 0,
-            list: [{id:'1',title:'1',link:'2',date:'2',author:'3',tag:'4'},{id:'1',title:'1',link:'2',date:'2',author:'3',tag:'4'}] ,// 存放列表数据
+            list: [{id:'1',title:'3211<p>dsa</p>“武切维奇”',link:'2',date:'2',author:'3',tag:'4'},{id:'1',title:'1',link:'2',date:'2',author:'3',tag:'4'}] ,// 存放列表数据
         };
     },
     methods: {
@@ -70,7 +70,7 @@
                 console.log(result);
             if (result.status === 200) {
                 // 成功了
-                this.list = result.body;
+//                this.list = result.body;
             } else {
                 // 失败了
                 alert("获取数据失败！");

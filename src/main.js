@@ -9,6 +9,10 @@ import router from './router.js'
 import VueResource from 'vue-resource'
 import Moment from 'moment'
 
+import VueAwesomeSwiper from 'vue-awesome-swiper/dist/vue-awesome-swiper.js'
+
+
+
 // 安装 ElementUI（ui）
 Vue.use(ElementUI)
 
@@ -17,6 +21,12 @@ Vue.use(VueRouter)
 
 // 绑定 vue-resource（ajax）
 Vue.use(VueResource)
+
+
+Vue.use(VueAwesomeSwiper)
+
+
+
 
 // 绑定 moment 进行时间格式化 ✔
 Vue.prototype.$moment = Moment;//赋值使用
