@@ -19,6 +19,7 @@ var router = new VueRouter({
         { path: '/updateBlog/:id', component: UpdateBlog },
         { path: '/Search/:keyword', component: Search },
         { path: '/Book/:id', component: Book },
+        { path: '/Book/:id/:zid', component: Book },
         { path: '/swiper', component: SwiperComponent },
         { path: '/', component: HomeBlog }
     ]

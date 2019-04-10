@@ -55,7 +55,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 $route['default_controller'] = 'welcome';
 $route['(:any)'] = 'welcome/$1';
-$route['getBlogById/:num'] = 'welcome/getBlogById/$1';
+$route['getBook/(\d+)'] = 'welcome/getBook/$1';
+$route['getBook/(\d+)/(\d+)'] = 'welcome/getBook/$1/$2';
 $route['news'] = 'news';
 
 //$route['(:any)'] = 'welcome';
