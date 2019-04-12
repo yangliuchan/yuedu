@@ -1,5 +1,5 @@
 <template>
-    <div class="book_page">
+    <div class="book_page" :class="beiJing" >
         <div class="book">
             <transition name="el-zoom-in-bottom">
                 <div v-show="showJinDu" class="jindu">
@@ -19,16 +19,44 @@
                 <div v-show="showMuLu" class="mulu">
                     <h3 class="textCenter xiDing">目录</h3>
                     <ul class="mulu_ul">
-                            <li>第一章 范德萨发的开始</li>
-                            <li>第一章 范德萨发的开始</li>
-                            <li>第一章 范德萨发的开始</li>
-                            <li>第一章 范德萨发的开始</li>
-                            <li>第一章 范德萨发的开始</li>
-                            <li>第一章 范德萨发的开始</li>
+                            <li><router-link to="/listBlog">第一章 范德萨发的开始</router-link></li>
+                            <li><router-link to="/listBlog">第一章 范德萨发的开始</router-link></li>
+                            <li><router-link to="/listBlog">第一章 范德萨发的开始</router-link></li>
+                            <li><router-link to="/listBlog">第一章 范德萨发的开始</router-link></li>
+                            <li><router-link to="/listBlog">第一章 范德萨发的开始</router-link></li>
+                            <li><router-link to="/listBlog">第一章 范德萨发的开始</router-link></li>
                         </ul>
                 </div>
             </transition>
             <div class='popContainer' v-show="showMuLu" @click="showMuLu = !showMuLu"></div>
+
+            <transition name="el-zoom-in-bottom">
+                <div v-show="showSheZhi" class="jindu shezhi">
+                    <el-row class="z1000">
+                        <el-col :span="2"><el-button type="text" @click="gaiZiHao(-1)">A-</el-button></el-col>
+                        <el-col :span="20">
+                            <div class="block z1000">
+                                <el-slider v-model="ziti" @change="gaiZiHao" :max="10" :min="1"></el-slider>
+                            </div>
+                        </el-col>
+                        <el-col :span="2" class="textRight"><el-button type="text" @click="gaiZiHao(1)">A+</el-button></el-col>
+                    </el-row>
+                    <div style="margin-top: 20px" class="z1000">
+                        <el-radio-group v-model="beiJingSe" @click="gaiBeiJing" size="small">
+                            <el-radio label="1" border class="bj1">纸色</el-radio>
+                            <el-radio label="2" border class="bj2">浅蓝</el-radio>
+                            <el-radio label="3" border class="bj3">浅绿</el-radio>
+                            <el-radio label="4" border class="bj4">白色</el-radio>
+                        </el-radio-group>
+                    </div>
+
+                    <el-row class="z1000 textCenter">
+                        <el-col :span="12"></el-col>
+                        <el-col :span="12"></el-col>
+                    </el-row>
+                </div>
+            </transition>
+            <div class='popContainer1' v-show="showSheZhi" @click="showSheZhi = !showSheZhi"></div>
 
             <transition name="el-fade-in-linear">
                 <div v-show="showMenu" class="book_right">
@@ -66,16 +94,26 @@
                             进度
                         </span>
                     </el-col>
-                    <el-col :span="6"><i class="el-icon-setting"></i>设置</el-col>
-                    <el-col :span="6"><i class="el-icon-view"></i>夜间</el-col>
+                    <el-col :span="6">
+                        <span @click="showSheZhi = !showSheZhi" class="shezhi_button">
+                            <i class="el-icon-setting"></i><br>
+                            设置
+                        </span>
+                    </el-col>
+                    <el-col :span="6">
+                        <span @click="yejian" class="yejian_button">
+                            <i class="el-icon-view"></i><br>
+                            夜间
+                        </span>
+                    </el-col>
                 </el-row>
             </transition>
         </div>
         <div class="h1">
-            <h1 class="isFixed">{{ booktitle }}</h1>
+            <h1 class="isFixed" :class="beiJing">{{ booktitle }}</h1>
         </div>
         <el-row v-for="value in book" :key="value.id">
-            <el-col :span="24" class="booktext" ref="bookheight">
+            <el-col :span="24" class="booktext" ref="bookheight" :class="ziHao">
                 <section @click="showMenu = !showMenu">
                     <h3  ref="booktitletext">{{ value.title }}</h3>
                     <div v-html="value.body">
@@ -193,7 +231,11 @@
         background-color: #000;
         color: #fff;
         z-index: 1000;
+        padding: 0.5rem 0;
 
+    }
+    .jindu .z1000{
+        margin: 0 1rem;
     }
     .shang_xia{
         position: absolute;
@@ -207,6 +249,14 @@
         right: 0;
         bottom: 0;
         background: rgba(0, 0, 0, 0.3);
+        z-index: 99;
+    }
+    div.popContainer1 {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
         z-index: 99;
     }
     .xiDing{
@@ -223,9 +273,61 @@
     .mulu_ul{
         margin-top: 3rem;
         list-style: none;
+        padding:0 1rem;
     }
-    .mulu_ul li{
-
+    .mulu_ul a{
+        height: 2.5rem;
+        line-height: 2.5rem;
+        display: block;
+    }
+    .shezhi .el-radio--small{
+        margin-right: 5px;
+    }
+     .bj1{
+        background-image: url("../assets/bj.jpg");
+    }
+    .bj2{
+        background-color: #c3d4e6;
+    }
+    .bj3{
+        background-color: #c8e8c8;
+    }
+    .bj4{
+        background-color: #fff;
+    }
+    .zihao1{
+        font-size: 0.8rem;
+    }
+    .zihao2{
+        font-size:0.9rem;
+    }
+    .zihao3{
+        font-size:1rem;
+    }
+    .zihao4{
+        font-size:1.1rem;
+    }
+    .zihao5{
+        font-size:1.2rem;
+    }
+    .zihao6{
+        font-size:1.3rem;
+    }
+    .zihao7{
+        font-size:1.4rem;
+    }
+    .zihao8{
+        font-size: 1.5rem;
+    }
+    .zihao9{
+        font-size: 1.6rem;
+    }
+    .zihao10{
+        font-size:1.7rem;
+    }
+    .heiye{
+        background-color: #000;
+        color: #fff;
     }
 
 </style>
@@ -240,6 +342,8 @@
         return {
             //小说进度
             jindutiao: 50,
+            //字体大小
+            ziti: 5,
             show:false,
             dialogVisible: false,
             showMenu: false,
@@ -250,7 +354,13 @@
             //章节高度
             page:[],
             showJinDu:false,
-            showMuLu:false
+            showMuLu:false,
+            showSheZhi:false,
+            beiJingSe: '3',
+            beiJing:'bj3',
+            ziHao:'1.2rem',
+            //黑夜模式
+            heiye:false,
 
         };
     },
@@ -277,6 +387,76 @@
         });
     },
     methods: {
+        yejian(){
+            if(this.heiye){
+                this.heiye = false;
+                this.beiJing = ''
+            }else{
+                this.beiJing = 'heiye'
+                this.heiye = true;
+            }
+        },
+        gaiBeiJing(){
+            switch(this.beiJingSe)
+            {
+                case '1':
+                    this.beiJing = 'bj1'
+                    break;
+                case '2':
+                    this.beiJing = 'bj2'
+                    break;
+                case '3':
+                    this.beiJing = 'bj3'
+                    break;
+                case '4':
+                    this.beiJing = 'bj4'
+                    break;
+                default:
+                    this.beiJing = ''
+            }
+        },
+        gaiZiHao(n){
+            if(n < 0){
+                this.ziti = this.ziti - 1
+            }else{
+                this.ziti = this.ziti + 1
+            }
+            switch(this.ziti)
+            {
+                case 1:
+                    this.ziHao = 'zihao1'
+                    break;
+                case 2:
+                    this.ziHao = 'zihao2'
+                    break;
+                case 3:
+                    this.ziHao = 'zihao3'
+                    break;
+                case 4:
+                    this.ziHao = 'zihao4'
+                    break;
+                case 5:
+                    this.ziHao = 'zihao5'
+                    break;
+                case 6:
+                    this.ziHao = 'zihao6'
+                    break;
+                case 7:
+                    this.ziHao = 'zihao7'
+                    break;
+                case 8:
+                    this.ziHao = 'zihao8'
+                    break;
+                case 9:
+                    this.ziHao = 'zihao9'
+                    break;
+                case 10:
+                    this.ziHao = 'zihao10'
+                    break;
+                default:
+                    this.ziHao = ''
+            }
+        },
         //滚动事件
         handleScroll () {
             let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
@@ -353,7 +533,6 @@
         for(var i = 1;i < this.page.length; i++){
             this.page[i] = this.page[i-1] + this.page[i];
         }
-
     }
     };
 </script>
