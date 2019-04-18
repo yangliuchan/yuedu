@@ -37,21 +37,7 @@
         };
     },
     created() {
-        this.$http.get("getBlogById/" + this.$route.params.id).then(result => {
-            // 注意： 通过 $http 获取到的数据，都在 result.body 中放着
-            var result = result.body;
-        if (result.code === 200) {
-            // 成功了
-            this.id = result.data.id;
-            this.title = result.data.title;
-            this.link = result.data.link;
-            this.author = result.data.author;
-            this.tag = result.data.tag;
-        } else {
-            // 失败了
-            alert("获取数据失败！");
-        }
-    });
+
     },
     methods: {
         updateBlog() {
