@@ -1,6 +1,6 @@
 <template>
-    <div class="book_page" :class="beiJing" >
-        <div class="book">
+    <div class="book_page" :class="beiJing">
+        <div class="book" v-loading.fullscreen.lock="fullscreenLoading">
             <transition name="el-zoom-in-bottom">
                 <div v-show="showJinDu" class="jindu">
                     <el-row class="z1000">
@@ -19,13 +19,10 @@
                 <div v-show="showMuLu" class="mulu">
                     <h3 class="textCenter xiDing">目录</h3>
                     <ul class="mulu_ul">
-                            <li><router-link to="/listBlog">第一章 范德萨发的开始</router-link></li>
-                            <li><router-link to="/listBlog">第一章 范德萨发的开始</router-link></li>
-                            <li><router-link to="/listBlog">第一章 范德萨发的开始</router-link></li>
-                            <li><router-link to="/listBlog">第一章 范德萨发的开始</router-link></li>
-                            <li><router-link to="/listBlog">第一章 范德萨发的开始</router-link></li>
-                            <li><router-link to="/listBlog">第一章 范德萨发的开始</router-link></li>
-                        </ul>
+                            <li v-for="value in booklist" :key="value.id">
+                                <a @click="tiao(value.id)">{{ value.title }}</a>
+                            </li>
+                    </ul>
                 </div>
             </transition>
             <div class='popContainer' v-show="showMuLu" @click="showMuLu = !showMuLu"></div>
@@ -110,10 +107,10 @@
             </transition>
         </div>
         <div class="h1">
-            <h1 class="isFixed" :class="beiJing">{{ booktitle }}</h1>
+            <h1 class="isFixed" id="h1" :class="beiJing">{{ booktitle }}<span>{{ juantitle }}</span></h1>
         </div>
-        <el-row v-for="value in book" :key="value.id">
-            <el-col :span="24" class="booktext" ref="bookheight" :class="ziHao">
+        <el-row v-for="value in book" :key="value.id" :id="forId(value.id)">
+            <el-col :span="24" class="booktext" :class="ziHao">
                 <section @click="showMenu = !showMenu">
                     <h3  ref="booktitletext">{{ value.title }}</h3>
                     <div v-html="value.body">
@@ -122,6 +119,9 @@
 
             </el-col>
 
+        </el-row>
+        <el-row>
+            <el-col class="textCenter" id="nextpage"><el-button type="primary"  @click="nextPage">加载下一章</el-button></el-col>
         </el-row>
 
     </div>
@@ -155,14 +155,21 @@
         font-weight: normal;
         display: block;
         position: fixed;
-        top:0;
+        top: 0;
         background: #c8e8c8;
+        left: 0;
+        margin: 0 8px;
         width: 100%;
         margin: 0;
         padding: 5px 0;
-        color:#7f7f7f;
-        height:25px;
-        z-index:99;
+        color: #7f7f7f;
+        height: 25px;
+        z-index: 99;
+        text-indent: 15px;
+    }
+    .isFixed span{
+        right: 15px;
+        position: absolute;
     }
     .book_top,.book_bottom,.book_right {
         background-color: #000;
@@ -346,14 +353,19 @@
             ziti: 5,
             show:false,
             dialogVisible: false,
+            //显示菜单
             showMenu: false,
             booktitle:'',
+            juantitle:'',
             booktitleclass:false,
             //小说章节
             book:[],
+            //小说目录
+            booklist:[],
             //章节高度
             page:[],
             showJinDu:false,
+            //显示小说目录
             showMuLu:false,
             showSheZhi:false,
             beiJingSe: '3',
@@ -361,32 +373,52 @@
             ziHao:'1.2rem',
             //黑夜模式
             heiye:false,
-
+            fullscreenLoading: true
         };
     },
     created() {
-        var url='';
-        if(this.$route.params.zid){
-            url = "getBook/" + this.$route.params.id + '/' + this.$route.params.zid;
-        }else{
-            url = "getBook/" + this.$route.params.id
-        }
-        //console.log(this.$route)
-        this.$http.get(url).then(result => {
-            // 注意： 通过 $http 获取到的数据，都在 result.body 中放着
-            //console.log(result)
-            if (result.status === 200) {
-                // 成功了
-                this.book = result.body;
-                this.booktitle = this.book[0]['title']
-                //console.log(this.book)
-            } else {
-                // 失败了
-                alert("获取数据失败！");
-            }
-        });
+        this.tiao();
+
     },
     methods: {
+        tiao(id){
+            var url='';
+            id = id ? id : this.$route.params.zid;
+            if(id){
+                url = "getBook/" + this.$route.params.id + '/' + id;
+            }else{
+                url = "getBook/" + this.$route.params.id
+            }
+
+            this.$http.get(url).then(result => {
+                // 注意： 通过 $http 获取到的数据，都在 result.body 中放着
+                console.log(result)
+                if (result.status === 200) {
+                    // 成功了
+                    this.book = result.body.book;
+                    this.booktitle = this.book[0]['title'];
+                    this.juantitle = this.book[0]['juan'];
+                    this.booklist = result.body.booklist;
+                    this.showMuLu = false;
+                    this.showMenu = false;
+                    window.scrollTo(0,0);
+                    this.closeFullScreen();
+                    //console.log(this.book)
+                } else {
+                    // 失败了
+                    alert("获取数据失败！");
+                }
+            });
+        },
+        closeFullScreen() {
+            this.fullscreenLoading = false;
+            setTimeout(() => {
+                this.fullscreenLoading = false;
+            }, 2000);
+        },
+        forId:function (index){
+            return 'bookheight' + index;
+        },
         yejian(){
             if(this.heiye){
                 this.heiye = false;
@@ -463,35 +495,45 @@
             let offsetTop = document.querySelector('.booktext').offsetTop
 //            scrollTop > offsetTop ? this.booktitle = true : this.booktitle = false
 
-            //屏幕高度
-            var w = window.screen.height;
+            console.log(document.querySelector('.mulu_ul'))
+            this.$nextTick(function(){
 
-            //显示相应每章标题
+                //屏幕高度
+                var h = window.screen.height;
+                var h1 = document.getElementById("h1").clientHeight;
+                var h2 = document.getElementById("nextpage").clientHeight;
 
-            var n = this.page.length;
-            for (var i= 0;i<n;i++){
-                if(this.page[i] > scrollTop){
-                    this.booktitle = this.book[i]['title']
-                    break
+                //显示相应每章标题
+                var n = this.page.length;
+                for (var i= 0;i<n;i++){
+                    if(this.page[i] > scrollTop){
+                        this.booktitle = this.book[i]['title']
+                        this.juantitle = this.book[i]['juan']
+                        break
+                    }
                 }
-            }
 
-            //判断是否到底部
-            if(scrollTop > this.page[n-1] - w){
-                //加载下一章
-                this.showPage('next',this.book[n-1]['id'])
-            }
-            //判断是否到顶部
-            if(scrollTop == 0){
-                //加载上一章
-                this.showPage('previous',this.book[0]['id'])
-                //console.log(this.page[0])
-                window.scrollTo(0,100);
+                //判断是否到底部
+                if(this.page[n-1] - scrollTop <= h-h1-h2 && typeof(this.page[n-1]) != "undefined"){
+                    //加载下一章
+                    this.showPage('next',this.book[n-1]['id'])
 
-            }
+                }
+                //判断是否到顶部
+                if(scrollTop == 0){
+                    //加载上一章
+                    if(this.book[0]['id']>1){
+                        this.showPage('previous',this.book[0]['id'])
+                        //console.log(this.page[0])
 
-            console.log(scrollTop)
-//            console.log(this.page)
+                    }else{
+                        alert("没有了，这是第一章");
+                    }
+                }
+            });
+
+
+
         },
         handleClose(done) {
             done();
@@ -501,17 +543,42 @@
                     ? this.$router.go(-1)
                     : this.$router.push('/')
         },
+        nextPage(){
+            var n = this.page.length;
+            this.showPage('next',this.book[n-1]['id'])
+        },
         showPage(type,id){
-            this.$http.get("getBook/"  + this.$route.params.id + '/' + id + '?type=' + type).then(result => {
+            //this.fullscreenLoading = true;
+            //console.log(this.$route.params.id)
+            this.$http.post("getBook",{
+                sid:this.$route.params.id,
+                zid:id,
+                type:type
+            }).then(result => {
                 // 注意： 通过 $http 获取到的数据，都在 result.body 中放着
-                //console.log(result)
+                console.log(result)
                 if (result.status === 200) {
                     // 成功了
                     if(type == 'previous'){
                         this.book.unshift(result.body);
+                        //this.closeFullScreen();
+                        this.booktitle = this.book[0]['title'];
+                        this.juantitle = this.book[0]['juan'];
+                        var w = window.screen.height;
+                        this.$nextTick(function(){
+                            var o = document.getElementById("bookheight"+this.book[0]['id']);
+                            var h = o.clientHeight||o.offsetHeight;
+                            window.scrollTo(0,h-w/2)
+                        });
+                        result = '';
                     }
                     if(type == 'next'){
                         this.book.push(result.body);
+                        //this.closeFullScreen();
+                        this.booktitle = this.book[0]['title'];
+                        this.juantitle = this.book[0]['juan'];
+
+                        result = '';
                     }
                     //console.log(this.book)
                 } else {
@@ -519,20 +586,30 @@
                     alert("获取数据失败！");
                 }
             });
+        },
+        muluScroll(){
+            console.log(document.querySelector('.booktext').offsetTop)
         }
     },
     mounted() {
         window.addEventListener('scroll', this.handleScroll)
-        console.log(window)
+        document.querySelector('.mulu').addEventListener('scroll', this.muluScroll)
+        //console.log(window)
     },
     updated(){
-        //计算每章高度 存在page[]
-        for(var i=0;i<this.book.length;i++){
-            this.page[i]=this.$refs.bookheight[i].$el.clientHeight
+
+        for(var i in this.book){
+            var o = document.getElementById("bookheight"+this.book[i]['id']);
+            if(o){
+                var h = o.clientHeight||o.offsetHeight;
+                this.page[i] = h;
+            }
         }
         for(var i = 1;i < this.page.length; i++){
             this.page[i] = this.page[i-1] + this.page[i];
         }
+
+
     }
     };
 </script>
