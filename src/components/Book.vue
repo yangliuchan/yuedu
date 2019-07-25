@@ -4,9 +4,9 @@
             <transition name="el-zoom-in-bottom">
                 <div v-show="showJinDu" class="jindu">
                     <el-row class="z1000">
-                        <el-col :span="8">< 上一章</el-col>
-                        <el-col :span="8">1 发的撒的撒</el-col>
-                        <el-col :span="8" class="textRight">下一章 ></el-col>
+                        <el-col :span="5"><span @click="previousPage">< 上一章</span></el-col>
+                        <el-col :span="14" class="textCenter">{{booktitle}}</el-col>
+                        <el-col :span="5" class="textRight"><span  @click="nextPage1">下一章 ></span></el-col>
                     </el-row>
                     <div class="block z1000">
                         <el-slider v-model="jindutiao"></el-slider>
@@ -20,7 +20,7 @@
                     <h3 class="textCenter xiDing">目录</h3>
                     <ul class="mulu_ul">
                             <li v-for="value in booklist" :key="value.id">
-                                <a @click="tiao(value.id)">{{ value.title }}</a>
+                                <a @click="tiao(value.id)" :class="dangqian(value.id)">{{ value.title }}</a>
                             </li>
                     </ul>
                 </div>
@@ -109,7 +109,7 @@
         <div class="h1">
             <h1 class="isFixed" id="h1" :class="beiJing">{{ booktitle }}<span>{{ juantitle }}</span></h1>
         </div>
-        <el-row v-for="value in book" :key="value.id" :id="forId(value.id)">
+        <el-row v-for="value in book" :key="value.id" :id="forId('bookheight',value.id)">
             <el-col :span="24" class="booktext" :class="ziHao">
                 <section @click="showMenu = !showMenu">
                     <h3  ref="booktitletext">{{ value.title }}</h3>
@@ -121,7 +121,7 @@
 
         </el-row>
         <el-row>
-            <el-col class="textCenter" id="nextpage"><el-button type="primary"  @click="nextPage">加载下一章</el-button></el-col>
+            <el-col class="textCenter" id="nextpage"><el-button type="primary"  @click="nextPage1">加载下一章</el-button></el-col>
         </el-row>
 
     </div>
@@ -336,6 +336,10 @@
         background-color: #000;
         color: #fff;
     }
+    .dangqian{
+        background-color: #409EFF;
+        color: #fff;
+    }
 
 </style>
 <script>
@@ -355,7 +359,10 @@
             dialogVisible: false,
             //显示菜单
             showMenu: false,
+            //当前章节名
             booktitle:'',
+            //当前章节id
+            bookid:'',
             juantitle:'',
             booktitleclass:false,
             //小说章节
@@ -377,10 +384,18 @@
         };
     },
     created() {
+        //跳转对应章节
         this.tiao();
 
     },
     methods: {
+        dangqian(id){
+            if(id == this.bookid){
+                return 'dangqian';
+            }else {
+                return '';
+            }
+        },
         tiao(id){
             var url='';
             id = id ? id : this.$route.params.zid;
@@ -392,10 +407,11 @@
 
             this.$http.get(url).then(result => {
                 // 注意： 通过 $http 获取到的数据，都在 result.body 中放着
-                console.log(result)
+                //console.log(result)
                 if (result.status === 200) {
                     // 成功了
                     this.book = result.body.book;
+                    this.bookid = this.book[0]['id'];
                     this.booktitle = this.book[0]['title'];
                     this.juantitle = this.book[0]['juan'];
                     this.booklist = result.body.booklist;
@@ -403,7 +419,9 @@
                     this.showMenu = false;
                     window.scrollTo(0,0);
                     this.closeFullScreen();
-                    //console.log(this.book)
+                    this.booklist[this.bookid-1]['dangqian'] = 1;
+                    console.log(this.booklist)
+
                 } else {
                     // 失败了
                     alert("获取数据失败！");
@@ -416,8 +434,8 @@
                 this.fullscreenLoading = false;
             }, 2000);
         },
-        forId:function (index){
-            return 'bookheight' + index;
+        forId(name,index){
+            return name + index;
         },
         yejian(){
             if(this.heiye){
@@ -495,7 +513,7 @@
             let offsetTop = document.querySelector('.booktext').offsetTop
 //            scrollTop > offsetTop ? this.booktitle = true : this.booktitle = false
 
-            console.log(document.querySelector('.mulu_ul'))
+            //console.log(document.querySelector('.mulu_ul'))
             this.$nextTick(function(){
 
                 //屏幕高度
@@ -509,6 +527,9 @@
                     if(this.page[i] > scrollTop){
                         this.booktitle = this.book[i]['title']
                         this.juantitle = this.book[i]['juan']
+                        this.booklist[this.bookid-1]['dangqian'] = 0;
+                        this.booklist[i]['dangqian'] = 1;
+                        this.bookid = this.book[i]['id'];
                         break
                     }
                 }
@@ -547,9 +568,31 @@
             var n = this.page.length;
             this.showPage('next',this.book[n-1]['id'])
         },
+        nextPage1(){
+            var n = this.page.length;
+            var id = '';
+            console.log(this.page)
+            console.log(this.book)
+            for(var i= 0;i < this.book.length;i++){
+                if(this.book[i]['id'] == this.bookid){
+                    id = i;
+                }
+            }
+            if(id != ''){
+                window.scrollTo(0,this.page[i]);
+            }else {
+                this.showPage('next',this.book[n-1]['id'])
+                window.scrollTo(0,0);
+
+            }
+        },
+        previousPage(){
+            this.showPage('previous',this.book[0]['id'])
+        },
         showPage(type,id){
             //this.fullscreenLoading = true;
             //console.log(this.$route.params.id)
+            console.log(this.book)
             this.$http.post("getBook",{
                 sid:this.$route.params.id,
                 zid:id,
@@ -588,7 +631,9 @@
             });
         },
         muluScroll(){
-            console.log(document.querySelector('.booktext').offsetTop)
+            let scrollTop = document.querySelector('.mulu').pageYOffset || document.querySelector('.mulu').scrollTop
+            let offsetTop = document.querySelector('.dangqian').offsetTop
+            console.log(offsetTop)
         }
     },
     mounted() {
@@ -608,7 +653,6 @@
         for(var i = 1;i < this.page.length; i++){
             this.page[i] = this.page[i-1] + this.page[i];
         }
-
 
     }
     };
