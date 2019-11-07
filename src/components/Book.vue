@@ -1,5 +1,5 @@
 <template>
-    <div class="book_page" :class="beiJing">
+    <div class="book_page" :class="beiJingSe">
         <div class="book" v-loading.fullscreen.lock="fullscreenLoading">
             <transition name="el-zoom-in-bottom">
                 <div v-show="showJinDu" class="jindu">
@@ -39,11 +39,11 @@
                         <el-col :span="2" class="textRight"><el-button type="text" @click="gaiZiHao(1)">A+</el-button></el-col>
                     </el-row>
                     <div style="margin-top: 20px" class="z1000">
-                        <el-radio-group v-model="beiJingSe" @click="gaiBeiJing" size="small">
-                            <el-radio label="1" border class="bj1">纸色</el-radio>
-                            <el-radio label="2" border class="bj2">浅蓝</el-radio>
-                            <el-radio label="3" border class="bj3">浅绿</el-radio>
-                            <el-radio label="4" border class="bj4">白色</el-radio>
+                        <el-radio-group v-model="beiJingSe" size="small">
+                            <el-radio label="bj1" border class="bj1">纸色</el-radio>
+                            <el-radio label="bj2" border class="bj2">浅蓝</el-radio>
+                            <el-radio label="bj3" border class="bj3">浅绿</el-radio>
+                            <el-radio label="bj4" border class="bj4">白色</el-radio>
                         </el-radio-group>
                     </div>
 
@@ -444,25 +444,6 @@
             }else{
                 this.beiJing = 'heiye'
                 this.heiye = true;
-            }
-        },
-        gaiBeiJing(){
-            switch(this.beiJingSe)
-            {
-                case '1':
-                    this.beiJing = 'bj1'
-                    break;
-                case '2':
-                    this.beiJing = 'bj2'
-                    break;
-                case '3':
-                    this.beiJing = 'bj3'
-                    break;
-                case '4':
-                    this.beiJing = 'bj4'
-                    break;
-                default:
-                    this.beiJing = ''
             }
         },
         gaiZiHao(n){

@@ -45,7 +45,7 @@ class Welcome extends CI_Controller {
 	}
 
 
-	private function getBookData($sid,$zid,$type=''){
+	public function getBookData($sid,$zid,$type=''){
 		$query = $this->db->query('SELECT * FROM chapter_'.$sid.' WHERE cid ='.$zid);
 		$row = $query->row_array();
 		if(!$row){
@@ -244,7 +244,6 @@ class Welcome extends CI_Controller {
 
 			$str = "第一卷 在澹州 范慎很困难地撑着上眼皮，看着指头算自己 第二卷 在澹州 到自己唇边的液体，却惊奇地发现自己 第三卷 在澹州 到自己唇边的液体，却惊奇 ";
 			//$keywords = preg_split("/[\x{0a}|\x{0d}]+(第[\x{4e00}-\x{9fa5}]+卷)/u", $content, 0, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
-
 			//存小说
 			$book = array();
 			//是否有 卷

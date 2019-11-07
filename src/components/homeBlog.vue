@@ -67,70 +67,87 @@
                 <ol class="module-slide-ol" title="水平列表，可水平滚动">
 
                     <li class="module-slide-li">
-                        <a href="/book/1011207893" class="module-slide-a">
+                        <router-link to="/book/2" class="module-slide-a">
                             <img src="//bookcover.yuewen.com/qdbimg/349573/1011207893/150" class="module-slide-img" alt="还看今朝">
                             <div class="module-slide-caption">还看今朝</div>
                             <p class="module-slide-author">
                                 <span>作者：</span>
                                 <span class="gray">瑞根</span>
                             </p>
-                        </a>
+                        </router-link>
+                    </li>
+                    <li class="module-slide-li">
+                        <router-link to="/book/2" class="module-slide-a">
+                            <img src="//bookcover.yuewen.com/qdbimg/349573/1011207893/150" class="module-slide-img" alt="还看今朝">
+                            <div class="module-slide-caption">还看今朝</div>
+                            <p class="module-slide-author">
+                                <span>作者：</span>
+                                <span class="gray">瑞根</span>
+                            </p>
+                        </router-link>
+                    </li>
+                    <li class="module-slide-li">
+                        <router-link to="/book/2" class="module-slide-a">
+                            <img src="//bookcover.yuewen.com/qdbimg/349573/1011207893/150" class="module-slide-img" alt="还看今朝">
+                            <div class="module-slide-caption">还看今朝</div>
+                            <p class="module-slide-author">
+                                <span>作者：</span>
+                                <span class="gray">瑞根</span>
+                            </p>
+                        </router-link>
+                    </li>
+                    <li class="module-slide-li">
+                        <router-link to="/book/2" class="module-slide-a">
+                            <img src="//bookcover.yuewen.com/qdbimg/349573/1011207893/150" class="module-slide-img" alt="还看今朝">
+                            <div class="module-slide-caption">还看今朝</div>
+                            <p class="module-slide-author">
+                                <span>作者：</span>
+                                <span class="gray">瑞根</span>
+                            </p>
+                        </router-link>
+                    </li>
+                    <li class="module-slide-li">
+                        <router-link to="/book/2" class="module-slide-a">
+                            <img src="//bookcover.yuewen.com/qdbimg/349573/1011207893/150" class="module-slide-img" alt="还看今朝">
+                            <div class="module-slide-caption">还看今朝</div>
+                            <p class="module-slide-author">
+                                <span>作者：</span>
+                                <span class="gray">瑞根</span>
+                            </p>
+                        </router-link>
+                    </li>
+                    <li class="module-slide-li">
+                        <router-link to="/book/2" class="module-slide-a">
+                            <img src="//bookcover.yuewen.com/qdbimg/349573/1011207893/150" class="module-slide-img" alt="还看今朝">
+                            <div class="module-slide-caption">还看今朝</div>
+                            <p class="module-slide-author">
+                                <span>作者：</span>
+                                <span class="gray">瑞根</span>
+                            </p>
+                        </router-link>
+                    </li>
+                    <li class="module-slide-li">
+                        <router-link to="/book/2" class="module-slide-a">
+                            <img src="//bookcover.yuewen.com/qdbimg/349573/1011207893/150" class="module-slide-img" alt="还看今朝">
+                            <div class="module-slide-caption">还看今朝</div>
+                            <p class="module-slide-author">
+                                <span>作者：</span>
+                                <span class="gray">瑞根</span>
+                            </p>
+                        </router-link>
+                    </li>
+                    <li class="module-slide-li">
+                        <router-link to="/book/2" class="module-slide-a">
+                            <img src="//bookcover.yuewen.com/qdbimg/349573/1011207893/150" class="module-slide-img" alt="还看今朝">
+                            <div class="module-slide-caption">还看今朝</div>
+                            <p class="module-slide-author">
+                                <span>作者：</span>
+                                <span class="gray">瑞根</span>
+                            </p>
+                        </router-link>
                     </li>
 
-                    <li class="module-slide-li">
-                        <a href="/book/1011207893" class="module-slide-a">
-                            <img src="//bookcover.yuewen.com/qdbimg/349573/1011207893/150" class="module-slide-img" alt="还看今朝">
-                            <div class="module-slide-caption">还看今朝</div>
-                            <p class="module-slide-author">
-                                <span>作者：</span>
-                                <span class="gray">瑞根</span>
-                            </p>
-                        </a>
-                    </li>
 
-                    <li class="module-slide-li">
-                        <a href="/book/1011207893" class="module-slide-a">
-                            <img src="//bookcover.yuewen.com/qdbimg/349573/1011207893/150" class="module-slide-img" alt="还看今朝">
-                            <div class="module-slide-caption">还看今朝</div>
-                            <p class="module-slide-author">
-                                <span>作者：</span>
-                                <span class="gray">瑞根</span>
-                            </p>
-                        </a>
-                    </li>
-
-                    <li class="module-slide-li">
-                        <a href="/book/1011207893" class="module-slide-a">
-                            <img src="//bookcover.yuewen.com/qdbimg/349573/1011207893/150" class="module-slide-img" alt="还看今朝">
-                            <div class="module-slide-caption">还看今朝</div>
-                            <p class="module-slide-author">
-                                <span>作者：</span>
-                                <span class="gray">瑞根</span>
-                            </p>
-                        </a>
-                    </li>
-
-                    <li class="module-slide-li">
-                        <a href="/book/1011207893" class="module-slide-a">
-                            <img src="//bookcover.yuewen.com/qdbimg/349573/1011207893/150" class="module-slide-img" alt="还看今朝">
-                            <div class="module-slide-caption">还看今朝</div>
-                            <p class="module-slide-author">
-                                <span>作者：</span>
-                                <span class="gray">瑞根</span>
-                            </p>
-                        </a>
-                    </li>
-
-                    <li class="module-slide-li">
-                        <a href="/book/1011207893" class="module-slide-a">
-                            <img src="//bookcover.yuewen.com/qdbimg/349573/1011207893/150" class="module-slide-img" alt="还看今朝">
-                            <div class="module-slide-caption">还看今朝</div>
-                            <p class="module-slide-author">
-                                <span>作者：</span>
-                                <span class="gray">瑞根</span>
-                            </p>
-                        </a>
-                    </li>
 
                 </ol>
             </el-col>
